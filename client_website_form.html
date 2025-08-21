@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Briefing para Desenvolvimento de Website</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #1a1a1a;
+        background: linear-gradient(135deg, #ff6b35 0%, #1a1a1a 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #1a1a1a, #ff6b35);
+        color: white;
+        padding: 40px 30px;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+
+      .header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      .form-content {
+        padding: 40px 30px;
+      }
+
+      .section {
+        margin-bottom: 40px;
+        padding: 25px;
+        border: 2px solid #2a2a2a;
+        border-radius: 15px;
+        background: #fafafa;
+        transition: all 0.3s ease;
+      }
+
+      .section:hover {
+        border-color: #ff6b35;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(255, 107, 53, 0.15);
+      }
+
+      .section-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #ff6b35;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .section-title::before {
+        content: "";
+        width: 4px;
+        height: 25px;
+        background: linear-gradient(to bottom, #ff6b35, #f7931e);
+        border-radius: 2px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group.half {
+        display: inline-block;
+        width: 48%;
+        margin-right: 4%;
+      }
+
+      .form-group.half:nth-child(even) {
+        margin-right: 0;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #1a1a1a;
+        font-size: 0.95rem;
+      }
+
+      .required {
+        color: #ef4444;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #2a2a2a;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: white;
+        color: #1a1a1a;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #ff6b35;
+        box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      .checkbox-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .checkbox-item {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background: white;
+        border: 2px solid #2a2a2a;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .checkbox-item:hover {
+        border-color: #ff6b35;
+        background: #fff5f0;
+      }
+
+      .checkbox-item input[type="checkbox"] {
+        width: auto;
+        margin-right: 10px;
+        accent-color: #ff6b35;
+        pointer-events: none;
+      }
+
+      .checkbox-item label {
+        cursor: pointer;
+        margin-bottom: 0;
+        flex-grow: 1;
+        pointer-events: none;
+      }
+
+      .radio-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 10px;
+      }
+
+      .radio-item {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        background: white;
+        border: 2px solid #2a2a2a;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .radio-item:hover {
+        border-color: #ff6b35;
+        background: #fff5f0;
+      }
+
+      .radio-item input[type="radio"] {
+        width: auto;
+        margin-right: 8px;
+        accent-color: #ff6b35;
+        pointer-events: none;
+      }
+
+      .radio-item label {
+        cursor: pointer;
+        margin-bottom: 0;
+        flex-grow: 1;
+        pointer-events: none;
+      }
+
+      .submit-section {
+        background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+        padding: 30px;
+        text-align: center;
+        border-radius: 15px;
+        margin-top: 30px;
+      }
+
+      .submit-btn {
+        background: linear-gradient(135deg, #ff6b35, #ff8542);
+        color: white;
+        padding: 15px 40px;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(255, 107, 53, 0.4);
+      }
+
+      .note {
+        background: #fff5f0;
+        border: 1px solid #ff6b35;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 20px 0;
+        font-size: 0.9rem;
+        color: #1a1a1a;
+      }
+
+      @media (max-width: 768px) {
+        .form-group.half {
+          width: 100%;
+          margin-right: 0;
+        }
+
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .form-content {
+          padding: 20px;
+        }
+
+        .section {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Briefing para Website</h1>
+        <p>
+          Vamos criar o site dos seus sonhos! Preencha as informações abaixo.
+        </p>
+      </div>
+
+      <div class="form-content">
+        <form id="websiteForm">
+          <!-- Informações da Empresa -->
+          <div class="section">
+            <h2 class="section-title">Informações da Empresa</h2>
+
+            <div class="form-group half">
+              <label for="empresa"
+                >Nome da Empresa <span class="required">*</span></label
+              >
+              <input type="text" id="empresa" name="empresa" required />
+            </div>
+
+            <div class="form-group half">
+              <label for="ramo"
+                >Ramo de Atividade <span class="required">*</span></label
+              >
+              <input type="text" id="ramo" name="ramo" required />
+            </div>
+
+            <div class="form-group">
+              <label for="descricao">Descrição da Empresa</label>
+              <textarea
+                id="descricao"
+                name="descricao"
+                placeholder="Conte-nos sobre sua empresa, missão, valores..."
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Contato -->
+          <div class="section">
+            <h2 class="section-title">Informações de Contato</h2>
+
+            <div class="form-group half">
+              <label for="contato"
+                >Nome do Responsável <span class="required">*</span></label
+              >
+              <input type="text" id="contato" name="contato" required />
+            </div>
+
+            <div class="form-group half">
+              <label for="email">Email <span class="required">*</span></label>
+              <input type="email" id="email" name="email" required />
+            </div>
+
+            <div class="form-group half">
+              <label for="whatsapp"
+                >WhatsApp <span class="required">*</span></label
+              >
+              <input type="tel" id="whatsapp" name="whatsapp" required />
+            </div>
+          </div>
+
+          <!-- Objetivos do Site -->
+          <div class="section">
+            <h2 class="section-title">Objetivos do Website</h2>
+
+            <div class="form-group">
+              <label
+                >Quais são os principais objetivos do seu site?
+                <span class="required">*</span></label
+              >
+              <div class="checkbox-group">
+                <div class="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="obj1"
+                    name="objetivos[]"
+                    value="institucional"
+                  />
+                  <label for="obj1">Site Institucional</label>
+                </div>
+                <div class="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="obj2"
+                    name="objetivos[]"
+                    value="vendas"
+                  />
+                  <label for="obj2">Vendas Online (E-commerce)</label>
+                </div>
+                <div class="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="obj3"
+                    name="objetivos[]"
+                    value="blog"
+                  />
+                  <label for="obj3">Blog/Conteúdo</label>
+                </div>
+                <div class="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="obj4"
+                    name="objetivos[]"
+                    value="portfolio"
+                  />
+                  <label for="obj4">Portfolio/Galeria</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="publico"
+                >Público-alvo <span class="required">*</span></label
+              >
+              <textarea
+                id="publico"
+                name="publico"
+                required
+                placeholder="Descreva seu público-alvo: idade, sexo, interesses, poder aquisitivo..."
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Funcionalidades -->
+          <div class="section">
+            <h2 class="section-title">Funcionalidades Desejadas</h2>
+
+            <div class="form-group">
+              <label>Quais funcionalidades você deseja no site?</label>
+              <div class="checkbox-group">
+                <div class="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="func1"
+                    name="funcionalidades[]"
+                    value="formulario_contato"
+                  />
+                  <label for="func1">Formulário de Contato</label>
+                </div>
+                <div class="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="func2"
+                    name="funcionalidades[]"
+                    value="chat_whatsapp"
+                  />
+                  <label for="func2">Chat WhatsApp</label>
+                </div>
+                <div class="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="func3"
+                    name="funcionalidades[]"
+                    value="galeria_fotos"
+                  />
+                  <label for="func3">Galeria de Fotos</label>
+                </div>
+                <div class="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="func4"
+                    name="funcionalidades[]"
+                    value="blog"
+                  />
+                  <label for="func4">Blog</label>
+                </div>
+                <div class="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="func5"
+                    name="funcionalidades[]"
+                    value="ecommerce"
+                  />
+                  <label for="func5">Loja Virtual</label>
+                </div>
+                <div class="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="func6"
+                    name="funcionalidades[]"
+                    value="newsletter"
+                  />
+                  <label for="func6">Newsletter</label>
+                </div>
+                <div class="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="func7"
+                    name="funcionalidades[]"
+                    value="redes_sociais"
+                  />
+                  <label for="func7">Integração Redes Sociais</label>
+                </div>
+                <div class="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="func8"
+                    name="funcionalidades[]"
+                    value="mapa"
+                  />
+                  <label for="func8">Mapa de Localização</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Design e Estilo -->
+          <div class="section">
+            <h2 class="section-title">Design e Estilo</h2>
+
+            <div class="form-group">
+              <label for="estilo">Estilo preferido</label>
+              <select id="estilo" name="estilo">
+                <option value="">Selecione um estilo</option>
+                <option value="moderno">Moderno e Minimalista</option>
+                <option value="corporativo">Corporativo e Elegante</option>
+                <option value="criativo">Criativo e Colorido</option>
+                <option value="classico">Clássico e Tradicional</option>
+                <option value="jovem">Jovem e Descontraído</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="cores">Cores preferidas</label>
+              <input
+                type="text"
+                id="cores"
+                name="cores"
+                placeholder="Ex: azul, branco, cinza..."
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="site1">Site de Inspiração #1</label>
+              <input
+                type="text"
+                id="site1"
+                name="site_inspiracao_1"
+                placeholder="exemplo1.com ou www.exemplo1.com"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="site2">Site de Inspiração #2</label>
+              <input
+                type="text"
+                id="site2"
+                name="site_inspiracao_2"
+                placeholder="exemplo2.com ou www.exemplo2.com"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="site3">Site de Inspiração #3</label>
+              <input
+                type="text"
+                id="site3"
+                name="site_inspiracao_3"
+                placeholder="exemplo3.com ou www.exemplo3.com"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="referencias">Observações sobre as inspirações</label>
+              <textarea
+                id="referencias"
+                name="referencias"
+                placeholder="O que você gosta em cada site? Cores, layout, funcionalidades..."
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Conteúdo -->
+          <div class="section">
+            <h2 class="section-title">Conteúdo</h2>
+
+            <div class="form-group">
+              <label>Você já possui o conteúdo do site?</label>
+              <div class="radio-group">
+                <div class="radio-item">
+                  <input
+                    type="radio"
+                    id="cont1"
+                    name="conteudo_pronto"
+                    value="sim"
+                  />
+                  <label for="cont1">Sim, tenho tudo</label>
+                </div>
+                <div class="radio-item">
+                  <input
+                    type="radio"
+                    id="cont2"
+                    name="conteudo_pronto"
+                    value="parcial"
+                  />
+                  <label for="cont2">Tenho alguns</label>
+                </div>
+                <div class="radio-item">
+                  <input
+                    type="radio"
+                    id="cont3"
+                    name="conteudo_pronto"
+                    value="nao"
+                  />
+                  <label for="cont3">Preciso de ajuda</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="logo">Você possui logo/identidade visual?</label>
+              <select id="logo" name="logo">
+                <option value="">Selecione</option>
+                <option value="sim">Sim, tenho logo completo</option>
+                <option value="parcial">Tenho logo básico</option>
+                <option value="nao">Não tenho, preciso criar</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="fotos">Você possui fotos da empresa/produtos?</label>
+              <select id="fotos" name="fotos">
+                <option value="">Selecione</option>
+                <option value="sim">Sim, tenho fotos profissionais</option>
+                <option value="basicas">Tenho fotos básicas</option>
+                <option value="nao">
+                  Não tenho, preciso de sessão fotográfica
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Cronograma -->
+          <div class="section">
+            <h2 class="section-title">Cronograma</h2>
+
+            <div class="form-group">
+              <label for="prazo">Qual o prazo desejado?</label>
+              <select id="prazo" name="prazo">
+                <option value="">Selecione</option>
+                <option value="urgente">Urgente (até 2 semanas)</option>
+                <option value="rapido">Rápido (até 1 mês)</option>
+                <option value="normal">Normal (1-2 meses)</option>
+                <option value="flexivel">Flexível (acima de 2 meses)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Informações Adicionais -->
+          <div class="section">
+            <h2 class="section-title">Informações Adicionais</h2>
+
+            <div class="form-group">
+              <label for="observacoes"
+                >Observações, dúvidas ou requisitos especiais</label
+              >
+              <textarea
+                id="observacoes"
+                name="observacoes"
+                placeholder="Conte-nos qualquer informação adicional que considere importante..."
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="note">
+            <strong>Observação:</strong> Todas as informações fornecidas são
+            confidenciais e serão utilizadas exclusivamente para o
+            desenvolvimento do seu projeto.
+          </div>
+
+          <div class="submit-section">
+            <button type="submit" class="submit-btn">Enviar Briefing</button>
+            <p style="margin-top: 15px; color: #ffffff">
+              Entraremos em contato em até 24 horas!
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- EmailJS Script -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
+
+    <script>
+      // SUBSTITUA ESTAS CHAVES PELAS SUAS:
+      emailjs.init("RirHbCpyt4yDqJD4i"); // ← Cole sua Public Key aqui
+
+      document
+        .getElementById("websiteForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Mostra loading no botão
+          const submitBtn = document.querySelector(".submit-btn");
+          const originalText = submitBtn.textContent;
+          submitBtn.textContent = "Enviando...";
+          submitBtn.disabled = true;
+
+          // Coleta todos os dados do formulário
+          const formData = new FormData(this);
+          const dados = {};
+
+          // Campos simples
+          for (let [key, value] of formData.entries()) {
+            if (key.includes("[]")) {
+              const cleanKey = key.replace("[]", "");
+              if (!dados[cleanKey]) dados[cleanKey] = [];
+              dados[cleanKey].push(value);
+            } else {
+              dados[key] = value;
+            }
+          }
+
+          // Validação customizada: pelo menos um objetivo deve ser selecionado
+          if (!dados.objetivos || dados.objetivos.length === 0) {
+            alert("Por favor, selecione pelo menos um objetivo para o site.");
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            return;
+          }
+
+          // Converte arrays em strings para o email
+          for (let key in dados) {
+            if (Array.isArray(dados[key])) {
+              dados[key] = dados[key].join(", ");
+            }
+          }
+
+          // SUBSTITUA ESTAS CHAVES PELAS SUAS:
+          emailjs
+            .send(
+              "service_idiqqa8", // ← Cole seu Service ID aqui
+              "template_dpou9hq", // ← Cole seu Template ID aqui
+              dados // Dados do formulário
+            )
+            .then(function (response) {
+              console.log("Email enviado com sucesso!", response);
+              alert(
+                "Briefing enviado com sucesso! Entraremos em contato em até 24 horas."
+              );
+              document.getElementById("websiteForm").reset();
+            })
+            .catch(function (error) {
+              console.error("Erro ao enviar email:", error);
+              alert(
+                "Erro ao enviar o briefing. Tente novamente ou entre em contato diretamente."
+              );
+            })
+            .finally(function () {
+              // Restaura o botão
+              submitBtn.textContent = originalText;
+              submitBtn.disabled = false;
+            });
+        });
+
+      // Adiciona funcionalidade de clique nos balões
+      document
+        .querySelectorAll(".checkbox-item, .radio-item")
+        .forEach((item) => {
+          item.addEventListener("click", function (e) {
+            const input = this.querySelector(
+              'input[type="checkbox"], input[type="radio"]'
+            );
+            if (input) {
+              if (input.type === "checkbox") {
+                input.checked = !input.checked;
+              } else if (input.type === "radio") {
+                input.checked = true;
+              }
+            }
+          });
+        });
+
+      // Adiciona animações suaves
+      document.querySelectorAll(".section").forEach((section) => {
+        section.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-5px)";
+        });
+
+        section.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0)";
+        });
+      });
+    </script>
+  </body>
+</html>
